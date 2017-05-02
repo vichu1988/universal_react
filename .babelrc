@@ -1,0 +1,10 @@
+{
+  "presets": [
+    "es2015",
+    "react"
+  ],
+  "plugins": [
+    "transform-object-rest-spread"
+  ]
+  // restore legacy support for ES7 decorators in Babel 6
+}
