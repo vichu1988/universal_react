@@ -11,38 +11,38 @@ export const WORLD_COUNTRIES_FAILURE = 'WORLD_COUNTRIES_FAILURE';
 export const FILTER_COUNTRY = "FILTER_COUNTRY";
 
 export function invalidateCountryApiResponse() {
-    return {
-        type: INVALIDATE_WORLD_COUNTRIES
-    };
+  return {
+    type: INVALIDATE_WORLD_COUNTRIES
+  };
 }
 
 export function fetchWorldCountries() {
-    return {
-        type: WORLD_COUNTRIES,
-        promise : request.get(`https://restcountries.eu/rest/v1/all`)
-    }
+  return {
+    type: WORLD_COUNTRIES,
+    promise: request.get(`https://restcountries.eu/rest/v1/all`)
+  }
 }
 
 function shouldFetchWorldCountries(state) {
-    const worldCountries = state.worldCountries;
-    if (worldCountries.isFetching===false && worldCountries.result.length===0) {
-        return true;
-    }else{
-        return false;
-    }
+  const worldCountries = state.worldCountries;
+  if (worldCountries.isFetching === false && worldCountries.result.length === 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 export function fetchWorldCountriesIfNeeded() {
-    return (dispatch, getState) => {
-        if (shouldFetchWorldCountries(getState())) {
-            return dispatch(fetchWorldCountries());
-        }
+  return (dispatch, getState) => {
+    if (shouldFetchWorldCountries(getState())) {
+      return dispatch(fetchWorldCountries());
     }
+  }
 }
 
-export function filterCountry (searchText) {
-    return {
-        type:FILTER_COUNTRY,
-        searchText
-    }
+export function filterCountry(searchText) {
+  return {
+    type: FILTER_COUNTRY,
+    searchText
+  }
 }

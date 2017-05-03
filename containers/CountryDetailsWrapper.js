@@ -4,31 +4,29 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as countryDetailsActions from '../actions/countryDetailsApiActions'
+import * as countryDetailsActions from '../actions/countryDetailsApiActions';
 import CountryDetailsWrapper from '../components/CountryDetailsWrapper';
 
 CountryDetailsWrapper.need = [
-    countryDetailsActions.fetchCountryDetails
+  countryDetailsActions.fetchCountryDetails
 ];
 
+const mapStateToProps = (state, ownProps) => {
 
-const mapStateToProps=(state, ownProps)=> {
+  const { countryDetails } = state;
+  const alpha3Code = ownProps.params.id;
 
-    const { countryDetails } = state;
-    const alpha3Code = ownProps.params.id;
+  const { isFetching, error, result } = countryDetails;
 
-
-    const {isFetching,error, result} = countryDetails;
-
-    return {
-        isFetching,
-        error,
-        result,
-        alpha3Code
-    }
+  return {
+    isFetching,
+    error,
+    result,
+    alpha3Code
+  }
 };
-const mapDispatchToProps=(dispatch)=> {
-    return bindActionCreators(countryDetailsActions, dispatch);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(countryDetailsActions, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CountryDetailsWrapper);

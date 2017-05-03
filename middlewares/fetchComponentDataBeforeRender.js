@@ -7,12 +7,12 @@
  */
 
 export function fetchComponentDataBeforeRender(dispatch, components, params) {
-   
-    const needs = components.reduce( (prev, current) => {
-        return ((current && current.need !== undefined) ? current.need : [])
-            .concat((current && current.WrappedComponent ? current.WrappedComponent.need : []) || [])
-            .concat(prev);
-    }, []);
-    const promises = needs.map(need => dispatch(need(params.id)));
-    return Promise.all(promises);
+
+  const needs = components.reduce((prev, current) => {
+    return ((current && current.need !== undefined) ? current.need : [])
+      .concat((current && current.WrappedComponent ? current.WrappedComponent.need : []) || [])
+      .concat(prev);
+  }, []);
+  const promises = needs.map(need => dispatch(need(params.id)));
+  return Promise.all(promises);
 }

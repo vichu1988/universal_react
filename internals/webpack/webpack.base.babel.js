@@ -7,12 +7,11 @@ const webpack = require('webpack');
 const isNodeEnv = (process.env.NODE_ENV == 'development');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-
 module.exports = (options) => ({
   entry: options.entry,
   output: Object.assign({ // Compile into js/build.js
-      path: path.resolve(process.cwd(), 'build'),
-      publicPath: '/',
+    path: path.resolve(process.cwd(), 'build'),
+    publicPath: '/',
   }, options.output), // Merge with env dependent settings
   module: {
     loaders: [{
@@ -23,11 +22,11 @@ module.exports = (options) => ({
         presets: ['es2015', 'stage-2'],
       },
     }, {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-            fallback: "style-loader",
-            use: "css-loader"
-        })
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        fallback: "style-loader",
+        use: "css-loader"
+      })
     }, {
       test: /\.(eot|svg|ttf|woff|woff2)$/,
       loader: 'file-loader?name=onedigital/fonts/[name].[ext]',
@@ -36,7 +35,8 @@ module.exports = (options) => ({
       test: /\.(jpe?g|png|gif|svg)$/,
       loaders: [
         'file-loader?name=onedigital/images/[name].[ext]',
-        {loader: 'image-webpack-loader',
+        {
+          loader: 'image-webpack-loader',
           query: {
             mozjpeg: {
               progressive: true,
@@ -65,11 +65,10 @@ module.exports = (options) => ({
       test: /\.(mp4|webm)$/,
       loader: 'url-loader?limit=10000',
     },
-    { test: /\.handlebars$/, loader: "handlebars-loader" }
+      { test: /\.handlebars$/, loader: "handlebars-loader" }
     ]
   },
   plugins: options.plugins.concat([
-
 
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; UglifyJS will automatically
@@ -79,8 +78,6 @@ module.exports = (options) => ({
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
-
-
 
   ]),
   resolve: {
@@ -100,5 +97,5 @@ module.exports = (options) => ({
   },
   devtool: options.devtool,
   target: 'web', //Compile for usage in a browser-like environment,
-    performance: options.performance || {},
+  performance: options.performance || {},
 });

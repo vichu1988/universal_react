@@ -8,36 +8,36 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 module.exports = require('./webpack.base.babel')({
-    // In production, we skip all hot-reloading stuff
-    entry: [
-        path.join(process.cwd(), 'app','main.js'),
-        path.join(process.cwd(), 'styles','styles.css')
-    ],
+  // In production, we skip all hot-reloading stuff
+  entry: [
+    path.join(process.cwd(), 'app', 'main.js'),
+    path.join(process.cwd(), 'styles', 'styles.css')
+  ],
 
-    // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
-    output: {
-        filename: '[name].js',
-        chunkFilename: '[name].chunk.js',
-        publicPath:"http://localhost:3000/"
-    },
+  // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
+  output: {
+    filename: '[name].js',
+    chunkFilename: '[name].chunk.js',
+    publicPath: "http://localhost:3000/"
+  },
 
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                warnings: false
-            },
-            sourceMap:false
-        }),
-        new OptimizeCssAssetsPlugin(),
-        new webpack.optimize.OccurrenceOrderPlugin(true),
-        new CircularDependencyPlugin({
-            exclude: /a\.js|node_modules/, // exclude node_modules
-            failOnError: false, // show a warning when there is a circular dependency
-        }),
-        new  ExtractTextPlugin("styles.css")
-    ],
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      },
+      sourceMap: false
+    }),
+    new OptimizeCssAssetsPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(true),
+    new CircularDependencyPlugin({
+      exclude: /a\.js|node_modules/, // exclude node_modules
+      failOnError: false, // show a warning when there is a circular dependency
+    }),
+    new ExtractTextPlugin("styles.css")
+  ],
 
-    performance: {
-        assetFilter: (assetFilename) => !(/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename)),
-    },
+  performance: {
+    assetFilter: (assetFilename) => !(/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename)),
+  },
 });

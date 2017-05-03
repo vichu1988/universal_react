@@ -6,3 +6,4 @@ exec('npm -v', function (err, stdout, stderr) {
     process.exit(1);
   }
 });
+cl
